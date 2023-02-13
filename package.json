@@ -1,0 +1,24 @@
+{
+  "name": "udacity_webDev_API",
+  "version": "1.0.0",
+  "description": "Project for the Udacity nanodegree Web Course on API and asynchronous applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M404ttis/udacity_webDev_API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/M404ttis/udacity_webDev_API/issues"
+  },
+  "homepage": "https://github.com/M404ttis/udacity_webDev_API#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5"
+  }
+}
