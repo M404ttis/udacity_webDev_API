@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Journal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id = "app">
+        <h1>
+            Weather Journal App
+        </h1>
+        <div class ="city">
+            <label for="cityName">Name of City </label>
+            <input type="text" id="cityName" placeholder="City name you want to get the wheather from">
+            <button id="fetchWheatherButton" type = "submit"> fetch wheather </button>
+        </div>
+
+        <div class ="entry">
+            <label for="entry">Your Entry </label>
+            <textarea id="entry" placeholder="How are you feeling today?"></textarea>
+            <button id="postEntryButton" type = "submit"> post entry </button>
+        </div>
+
+
+        <div id = "date"></div> 
+        <div id = "temp"></div>
+        <div id = "userResponse"></div>
+
+    </div>
+    <script src="app.js" type="text/javascript"></script>
+
+</body>
+</html>
