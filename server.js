@@ -1,3 +1,7 @@
+// require('dotenv').config();
+// const apiKey = `${process.env.OPEN_WHEATHER_API_KEY}`;
+
+
 /* Empty JS object to act as endpoint for all routes */
 projectData = {server: 'test'};
 
@@ -27,7 +31,7 @@ const server = app.listen(port, listening);
   };
 
 // GET route
-app.get('/wheather', sendData);
+app.get('/weather', sendData);
 
 function sendData (request, response) {
   console.log(projectData);
@@ -35,7 +39,7 @@ function sendData (request, response) {
 };
 
 // POST route
-app.post('/wheather', callBack);
+app.post('/weather', callBack);
 
 function callBack(req,res){
   res.send('POST received');
