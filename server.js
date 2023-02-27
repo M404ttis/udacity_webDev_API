@@ -1,9 +1,10 @@
-// require('dotenv').config();
-// const apiKey = `${process.env.OPEN_WHEATHER_API_KEY}`;
+require('dotenv').config();
+// const apiKey = process.env.OPEN_WHEATHER_API_KEY;
+// console.log(apiKey);
 
 
 /* Empty JS object to act as endpoint for all routes */
-projectData = {server: 'test'};
+projectData = [];
 
 /* Express to run server and routes */
 const express = require('express');
@@ -31,7 +32,7 @@ const server = app.listen(port, listening);
   };
 
 // GET route
-app.get('/weather', sendData);
+app.get('/allData', sendData);
 
 function sendData (request, response) {
   console.log(projectData);
@@ -39,17 +40,16 @@ function sendData (request, response) {
 };
 
 // POST route
-app.post('/weather', callBack);
+app.post('/add', addPostCallback);
 
-function callBack(req,res){
+function addPostCallback(req,res){
   res.send('POST received');
-}
-
-// POST an animal
-// const data = [];
-
-// app.post('/animal', addAnimal);
-
-// function addAnimal (req,res){
-//     data.push(req.body);
-// };
+  let newData = req.body;
+  let newEntry = {
+    date: newData.date,
+    temp: newData.temp,
+    content: newData.content
+  }
+  projectData.push(newEntry);
+  // res.send(newData);
+};
