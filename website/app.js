@@ -7,7 +7,6 @@ const apiKey = "75f585b70ff23db9d3c8d4f79efbd4ac";
 function performAction(e) {
   let zip = document.getElementById("zipName").value;
   let entry = document.getElementById("entry").value;
-  console.log(zip);
 
   const getWeatherAndUpdateUI = async () => {
     if (zip === "") {
