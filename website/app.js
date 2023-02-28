@@ -1,63 +1,80 @@
-const apiKey = "";
-let city = "";
-let limit = 1;
+const baseUrlZip = "https://api.openweathermap.org/data/2.5/weather?zip=";
+const apiValue = "&appid=";
+const apiKey = "75f585b70ff23db9d3c8d4f79efbd4ac";
+// let city = "";
+// let limit = 1;
 
 function performAction(e) {
-  let currentCity = document.getElementById("cityName").value;
+  let zip = document.getElementById("zipName").value;
+  let entry = document.getElementById("entry").value;
+  console.log(zip);
 
-  const getGeoEncodingWeatherAndUpdateUI = async () => {
-    if (currentCity === "") {
+  const getWeatherAndUpdateUI = async () => {
+    if (zip === "") {
       document.getElementById(
         "temp"
-      ).innerHTML = `We need a city name to get the weather`;
+      ).innerHTML = `We need a ZIP to get the weather`;
       document.getElementById(
         "date"
       ).innerHTML = `Date is: ${getCurrentDate()}`;
       postData("add", {
         date: getCurrentDate(),
         temp: "",
-        content: document.getElementById("entry").value,
+        content: entry,
       });
+      updateUserInput();
     } else {
-      const latAndLonArray = await getGeoEncoding(currentCity);
-      const dataWeather = await getWeatherDataWithGeoData(latAndLonArray);
+      // const latAndLonArray = await getGeoEncoding(currentCity);
+      // const dataWeather = await getWeatherDataWithGeoData(latAndLonArray);
+      const dataZipWeather = await getZipWeather(zip);
       postData("add", {
         date: getCurrentDate(),
-        temp: dataWeather,
-        content: currentCity,
+        temp: dataZipWeather,
+        content: entry,
       });
-      updateUI(dataWeather);
+      updateUI(dataZipWeather);
     }
   };
-
-  getGeoEncodingWeatherAndUpdateUI();
+  getWeatherAndUpdateUI();
+  // getGeoEncodingWeatherAndUpdateUI();
 }
 
-const getGeoEncoding = async (currentCity) => {
-  geoEncodingURL = `https://api.openweathermap.org/geo/1.0/direct?q=${currentCity}&limit=${limit}&appid=${apiKey}`;
-  const res = await fetch(geoEncodingURL);
+const getZipWeather = async (zip) => {
+  const res = await fetch(baseUrlZip + zip + apiValue + apiKey);
   try {
-    const dataGeoEncoding = await res.json();
-    const { lat, lon } = dataGeoEncoding[0];
-    return (latAndLon = [lat, lon]);
-  } catch (error) {
-    console.log("error", error);
-  }
-};
-
-const getWeatherDataWithGeoData = async (latAndLon) => {
-  const [lat, lon] = latAndLon;
-  let weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-
-  const res = await fetch(weatherURL);
-  try {
-    const dataWeather = await res.json();
-    temp = dataWeather.main.temp;
+    const data = await res.json();
+    console.log(data);
+    temp = data.main.temp;
     return temp;
   } catch (error) {
     console.log("error", error);
   }
 };
+// const getGeoEncoding = async (currentCity) => {
+//   geoEncodingURL = `https://api.openweathermap.org/geo/1.0/direct?q=${currentCity}&limit=${limit}&appid=${apiKey}`;
+//   const res = await fetch(geoEncodingURL);
+//   try {
+//     const dataGeoEncoding = await res.json();
+//     const { lat, lon } = dataGeoEncoding[0];
+//     return (latAndLon = [lat, lon]);
+//   } catch (error) {
+//     console.log("error", error);
+//   }
+// };
+
+// const getWeatherDataWithGeoData = async (latAndLon) => {
+//   const [lat, lon] = latAndLon;
+//   let weatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+//   const res = await fetch(weatherURL);
+//   try {
+//     const dataWeather = await res.json();
+//     temp = dataWeather.main.temp;
+//     return temp;
+//   } catch (error) {
+//     console.log("error", error);
+//   }
+// };
 
 // Example POST method implementation:
 async function postData(url = "", data = {}) {
@@ -74,13 +91,14 @@ async function postData(url = "", data = {}) {
 }
 
 const updateUI = (temp) => {
-  let currentCity = document.getElementById("cityName").value;
+  let zip = document.getElementById("zipName").value;
 
   try {
     document.getElementById("date").innerHTML = `Date is: ${getCurrentDate()}`;
     document.getElementById(
       "temp"
-    ).innerHTML = `It is ${temp} Fahrenheit in ${currentCity}`;
+    ).innerHTML = `It is ${temp} Fahrenheit at ZIP ${zip}`;
+    updateUserInput();
   } catch (error) {
     console.log("error", error);
   }
