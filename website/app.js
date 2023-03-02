@@ -107,7 +107,6 @@ const updateUI = (temp) => {
 const getCurrentDate = () => {
   let d = new Date();
   let newDate = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
-  console.log(d.getMonth());
   return newDate;
 };
 
