@@ -1,6 +1,6 @@
 const baseUrlZip = "https://api.openweathermap.org/data/2.5/weather?zip=";
 const apiValue = "&appid=";
-const apiKey = "75f585b70ff23db9d3c8d4f79efbd4ac";
+const apiKey = "75f585b70ff23db9d3c8d4f79efbd4ac&units=imperial";
 // let city = "";
 // let limit = 1;
 
@@ -107,6 +107,7 @@ const updateUI = (temp) => {
 const getCurrentDate = () => {
   let d = new Date();
   let newDate = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
+  console.log(d.getMonth());
   return newDate;
 };
 
